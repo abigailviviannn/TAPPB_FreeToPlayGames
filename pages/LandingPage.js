@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Components
-import Card from "../components/cardcategory";
+import Card from "../components/card";
 
 
-export default function Shooter() {
+export default function LandingPage() {
     const [data, setData] = useState(null);
     const [isLoaded, setisLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [query] = useState("shooter");
+    const [query, setQuery] = useState("pc");
     const nav = useNavigate();
 
     useEffect(() => {
@@ -19,7 +19,7 @@ export default function Shooter() {
             try {
                 const response = await axios.get(
                     "https://free-to-play-games-database.p.rapidapi.com/api/games", {
-                    params: { category: query },
+                    params: { platform: query },
                     headers: {
                         'X-RapidAPI-Key': '21e83afa83msha06ac3fd2a4d763p149d2ejsn4b3a6251466e',
                         'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
@@ -40,7 +40,12 @@ export default function Shooter() {
             fetchData(query);
         }
     }, [isLoaded, query]);
-
+    const onSearch = (e) => {
+        if (e.key === "Enter") {
+            setisLoaded(false);
+            setQuery(e.target.value);
+        }
+    };
     const handleClick = (item) => {
         navToDetail(item);
     };
@@ -50,12 +55,12 @@ export default function Shooter() {
     };
     return (
         <main>
-            {/* <input
+            <input
                 type="text"
                 placeholder="Search games by platform"
                 onKeyDown={(e) => onSearch(e)}
-            /> */}
-            <h3 className="title">Shooter</h3>
+            />
+            <h3 className="title">Search : {query}</h3>
             {!data || isLoading ? (
                 <p>Loading...</p>
             ) : (
