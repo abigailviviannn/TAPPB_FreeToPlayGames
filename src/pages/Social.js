@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import Card from "../components/cardcategory";
 
 
-export default function Shooter() {
+export default function Social() {
     const [data, setData] = useState(null);
     const [isLoaded, setisLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [query] = useState("shooter");
+    const [query] = useState("Social");
     const nav = useNavigate();
 
     useEffect(() => {
@@ -55,7 +55,7 @@ export default function Shooter() {
                 placeholder="Search games by platform"
                 onKeyDown={(e) => onSearch(e)}
             /> */}
-            <h3 className="title">Shooter</h3>
+            <h3 className="title">Social</h3>
             {!data || isLoading ? (
                 <p>Loading...</p>
             ) : (
